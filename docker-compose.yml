@@ -55,9 +55,10 @@ services:
       - 5435:5432
     networks:
       - kc-test
-    user: '999:999'
-    volumes:
-      - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
+    # user: '999:999'
+    # volumes:
+    #   - ./postgres/data:/var/lib/postgresql/data
+    #   - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
 
   connect:
     hostname: connect
