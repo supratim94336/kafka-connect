@@ -23,7 +23,7 @@ ALTER TABLE recipes REPLICA IDENTITY FULL;
 ### Setup WAL
 alter wal type
 ```
-$ psql -h localhost -p 5435 -d n26 -U admin
+$ psql -h localhost -p 5435 -d food -U admin
 # ALTER SYSTEM SET wal_level = 'logical';
 ```
 restart postgres container
@@ -35,4 +35,27 @@ now you have logical wal
 ### Setup debezium connector
 ```
 curl -i -X POST -H "Accept:application/json" -H "Content-Type:application/json" 127.0.0.1:8083/connectors/ --data "@debezium.json"
+```
+
+### Setup conumption
+In two different terminals
+1. First Terminal
+```
+docker run --tty \
+--network kc-test \
+confluentinc/cp-kafkacat \
+kafkacat -b broker:9092 -C \
+-s key=s -s value=avro \
+-r http://schema-registry:8085 \
+-t postgres.public.ingredients
+```
+2. First Terminal
+```
+docker run --tty \
+--network kc-test \
+confluentinc/cp-kafkacat \
+kafkacat -b broker:9092 -C \
+-s key=s -s value=avro \
+-r http://schema-registry:8085 \
+-t postgres.public.recipes
 ```
