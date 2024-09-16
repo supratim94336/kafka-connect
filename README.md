@@ -1,4 +1,10 @@
 ## Setup
+### Motivation
+1. Setup postgres instance
+2. Setup logical write ahead log (WAL)
+3. Setup debezium kafka connector
+4. Stream wal to kafka stream per table basis
+
 ### Diagram
 <p align="left">
 <img src="static/arch.png" width="400" height="128">
