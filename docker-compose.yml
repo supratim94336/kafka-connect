@@ -1,7 +1,7 @@
 services:
   zookeeper:
     container_name: zookeeper
-    image: artifactory.cd-tech26.de/docker/confluentinc/cp-zookeeper:7.3.1
+    image: confluentinc/cp-zookeeper:7.3.1
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
@@ -12,7 +12,7 @@ services:
       - kc-test
 
   broker:
-    image: artifactory.cd-tech26.de/docker/confluentinc/cp-enterprise-kafka:3.3.0
+    image: confluentinc/cp-enterprise-kafka:3.3.0
     depends_on:
       - zookeeper
     ports:
@@ -72,7 +72,7 @@ services:
       - kc-test
 
   schema_registry:
-    image: artifactory.cd-tech26.de/docker/confluentinc/cp-schema-registry:3.3.0
+    image: confluentinc/cp-schema-registry:3.3.0
     hostname: schema_registry
     container_name: schema_registry
     depends_on:
@@ -87,7 +87,7 @@ services:
       SCHEMA_REGISTRY_ACCESS_CONTROL_ALLOW_METHODS: 'GET,POST,PUT,OPTIONS'
 
   postgres:
-    image: artifactory.cd-tech26.de/docker/postgres:15.5
+    image: postgres:15.5
     container_name: postgres
     restart: always
     healthcheck:
