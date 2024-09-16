@@ -1,5 +1,4 @@
 services:
-
   zookeeper:
     container_name: zookeeper
     image: artifactory.cd-tech26.de/docker/confluentinc/cp-zookeeper:7.3.1
@@ -14,7 +13,6 @@ services:
 
   broker:
     image: artifactory.cd-tech26.de/docker/confluentinc/cp-enterprise-kafka:3.3.0
-    hostname: broker
     depends_on:
       - zookeeper
     ports:
@@ -38,34 +36,11 @@ services:
     networks:
       - kc-test
 
-  postgres:
-    container_name: postgres
-    restart: always
-    image: artifactory.cd-tech26.de/docker/postgres:15.5
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U admin -d n26"]
-      interval: 2s
-      timeout: 1s
-      retries: 12
-    environment:
-      POSTGRES_DB: n26
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: admin
-    ports:
-      - 5435:5432
-    networks:
-      - kc-test
-    # user: '999:999'
-    # volumes:
-    #   - ./postgres/data:/var/lib/postgresql/data
-    #   - ./postgres/init.sql:/docker-entrypoint-initdb.d/init.sql
-
   connect:
-    hostname: connect
     container_name: connect
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.connect
     depends_on:
       - zookeeper
       - broker
@@ -92,7 +67,7 @@ services:
       CONNECT_ZOOKEEPER_CONNECT: 'zookeeper:2181'
       CONNECT_PLUGIN_PATH: "/usr/share/java,/usr/share/confluent-hub-components"
     volumes:
-      - ./kafka-connect:/etc/kafka-connect/jars
+      - connect_data:/etc/kafka-connect/jars
     networks:
       - kc-test
 
@@ -111,6 +86,26 @@ services:
       SCHEMA_REGISTRY_ACCESS_CONTROL_ALLOW_ORIGIN: '*'
       SCHEMA_REGISTRY_ACCESS_CONTROL_ALLOW_METHODS: 'GET,POST,PUT,OPTIONS'
 
+  postgres:
+    image: artifactory.cd-tech26.de/docker/postgres:15.5
+    container_name: postgres
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U admin -d n26"]
+      interval: 2s
+      timeout: 1s
+      retries: 12
+    environment:
+      POSTGRES_DB: n26
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+    ports:
+      - 5435:5432
+    networks:
+      - kc-test
+    volumes:
+      - ./postgres:/docker-entrypoint-initdb.d/
+
   pgadmin:
     image: dpage/pgadmin4
     container_name: pgadmin
@@ -124,6 +119,9 @@ services:
       - ./pgadmin-data:/var/lib/pgadmin
     networks:
       - kc-test
+
+volumes:
+  connect_data:
 
 networks:
   kc-test:

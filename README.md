@@ -26,9 +26,3 @@ CREATE TABLE ingredients (
 ALTER TABLE ingredients REPLICA IDENTITY FULL;
 ALTER TABLE recipes REPLICA IDENTITY FULL;
 ```
-
-### Setup volumes
-
-```
-sudo chown -R 999:999 data
-```
