@@ -40,7 +40,7 @@ services:
     container_name: connect
     build:
       context: .
-      dockerfile: Dockerfile.connect
+      dockerfile: Dockerfile
     depends_on:
       - zookeeper
       - broker

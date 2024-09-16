@@ -1,4 +1,9 @@
 ## Setup
+### Diagram
+<p align="left">
+<img src="static/arch.png" width="400" height="128">
+</p>
+
 ### Setup tables (optional)
 ```
 CREATE TABLE recipes (
