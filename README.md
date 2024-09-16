@@ -61,7 +61,7 @@ kafkacat -b broker:9092 -C \
 -r http://schema-registry:8085 \
 -t postgres.public.ingredients
 ```
-2. First Terminal
+2. Second Terminal
 ```
 $ docker run --tty \
 --network kc-test \
