@@ -71,3 +71,10 @@ kafkacat -b broker:9092 -C \
 -r http://schema-registry:8085 \
 -t postgres.public.recipes
 ```
+
+### Check Topics (if neccessary)
+```
+$ docker run --network=kc-test confluentinc/cp-kafkacat kafkacat -b broker:9092 -L
+
+$ docker run --network=kc-test confluentinc/cp-kafkacat kafkacat -b broker:9092 -t postgres.public.recipes -C 
+```
