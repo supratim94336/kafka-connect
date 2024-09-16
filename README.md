@@ -30,23 +30,24 @@ alter wal type
 ```
 $ psql -h localhost -p 5435 -d food -U admin
 # ALTER SYSTEM SET wal_level = 'logical';
+# \q
 ```
 restart postgres container
 ```
-docker restart postgres
+$ docker restart postgres
 ```
 now you have logical wal
 
 ### Setup debezium connector
 ```
-curl -i -X POST -H "Accept:application/json" -H "Content-Type:application/json" 127.0.0.1:8083/connectors/ --data "@debezium.json"
+$ curl -i -X POST -H "Accept:application/json" -H "Content-Type:application/json" 127.0.0.1:8083/connectors/ --data "@debezium.json"
 ```
 
 ### Setup consumption
 In two different terminals
 1. First Terminal
 ```
-docker run --tty \
+$ docker run --tty \
 --network kc-test \
 confluentinc/cp-kafkacat \
 kafkacat -b broker:9092 -C \
@@ -56,7 +57,7 @@ kafkacat -b broker:9092 -C \
 ```
 2. First Terminal
 ```
-docker run --tty \
+$ docker run --tty \
 --network kc-test \
 confluentinc/cp-kafkacat \
 kafkacat -b broker:9092 -C \
