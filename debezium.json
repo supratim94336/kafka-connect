@@ -7,7 +7,7 @@
         "database.port": "5432",
         "database.user": "admin",
         "database.password": "admin",
-        "database.dbname": "n26",
+        "database.dbname": "food",
         "database.server.name": "postgres",
         "table.include.list": "public.recipes,public.ingredients",
         "table.whitelist": "public.recipes,public.ingredients",
