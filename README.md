@@ -1,12 +1,5 @@
 ## Setup
-
-### Setup debezium connector
-```
-curl -i -X POST -H "Accept:application/json" -H "Content-Type:application/json" 127.0.0.1:8083/connectors/ --data "@debezium.json"
-```
-
-
-### Setup tables
+### Setup tables (optional)
 ```
 CREATE TABLE recipes (
   recipe_id INT NOT NULL,
@@ -25,4 +18,21 @@ CREATE TABLE ingredients (
 
 ALTER TABLE ingredients REPLICA IDENTITY FULL;
 ALTER TABLE recipes REPLICA IDENTITY FULL;
+```
+
+### Setup WAL
+alter wal type
+```
+$ psql -h localhost -p 5435 -d n26 -U admin
+# ALTER SYSTEM SET wal_level = 'logical';
+```
+restart postgres container
+```
+docker restart postgres
+```
+now you have logical wal
+
+### Setup debezium connector
+```
+curl -i -X POST -H "Accept:application/json" -H "Content-Type:application/json" 127.0.0.1:8083/connectors/ --data "@debezium.json"
 ```
