@@ -31,7 +31,7 @@ ALTER TABLE ingredients REPLICA IDENTITY FULL;
 ALTER TABLE recipes REPLICA IDENTITY FULL;
 ```
 
-### Setup WAL
+### Setup WAL (optional)
 alter wal type
 ```
 $ psql -h localhost -p 5435 -d food -U admin
@@ -75,6 +75,8 @@ kafkacat -b broker:9092 -C \
 ### Check Topics (if neccessary)
 ```
 $ docker run --network=kc-test confluentinc/cp-kafkacat kafkacat -b broker:9092 -L
-
+```
+or
+```
 $ docker run --network=kc-test confluentinc/cp-kafkacat kafkacat -b broker:9092 -t postgres.public.recipes -C 
 ```

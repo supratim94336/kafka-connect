@@ -104,10 +104,16 @@ services:
     networks:
       - kc-test
     volumes:
-      - ./postgres:/docker-entrypoint-initdb.d/
+      - ./postgres/scripts:/docker-entrypoint-initdb.d/
+      - pg_data:/var/lib/postgresql/data
+    command:
+      - "postgres"
+      - "-c"
+      - "wal_level=logical"
 
 volumes:
   connect_data:
+  pg_data:
 
 networks:
   kc-test:
