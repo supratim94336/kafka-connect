@@ -62,6 +62,10 @@ or
 ```
 $ docker run --network=kc-test confluentinc/cp-kafkacat kafkacat -b broker:9092 -t postgres.public.recipes -C 
 ```
+or
+```
+docker exec -ti kafka-connect-broker-1 kafka-topics --list --zookeeper zookeeper
+```
 
 ### Clean up (if neccessary)
 ```
