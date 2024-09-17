@@ -80,3 +80,10 @@ or
 ```
 $ docker run --network=kc-test confluentinc/cp-kafkacat kafkacat -b broker:9092 -t postgres.public.recipes -C 
 ```
+
+### Clean up (if neccessary)
+```
+$ docker stop $(docker ps -aq)  
+$ docker system prune --all
+$ docker volume rm $(docker volume ls -q)
+```
