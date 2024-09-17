@@ -38,6 +38,23 @@ kafkacat -b broker:9092 -C \
 -t postgres.public.recipes
 ```
 
+### Example postgres inserts
+```
+INSERT INTO ingredients
+    (ingredient_id, ingredient_name, ingredient_price)
+VALUES 
+    (1, 'Beef', 5),
+    (2, 'Lettuce', 1),
+    (3, 'Tomatoes', 2);
+
+INSERT INTO recipes
+ (recipe_id, recipe_name) 
+VALUES
+ (1,'Tacos'),
+ (2,'Tomato Soup'),
+ (3,'Grilled Cheese');
+```
+
 ### Check Topics (if neccessary)
 ```
 $ docker run --network=kc-test confluentinc/cp-kafkacat kafkacat -b broker:9092 -L
