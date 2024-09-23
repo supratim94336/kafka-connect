@@ -23,7 +23,7 @@ $ docker run --tty \
 confluentinc/cp-kafkacat \
 kafkacat -b broker:29092 -C \
 -s key=s -s value=avro \
--r http://schema-registry:8085 \
+-r http://schema_registry:8081 \
 -t topic_food.public.ingredients
 ```
 2. Second Terminal
@@ -33,7 +33,7 @@ $ docker run --tty \
 confluentinc/cp-kafkacat \
 kafkacat -b broker:29092 -C \
 -s key=s -s value=avro \
--r http://schema-registry:8085 \
+-r http://schema_registry:8081 \
 -t topic_food.public.recipes
 ```
 
