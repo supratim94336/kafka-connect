@@ -24,7 +24,7 @@ confluentinc/cp-kafkacat \
 kafkacat -b broker:29092 -C \
 -s key=s -s value=avro \
 -r http://schema_registry:8081 \
--t topic_food.public.ingredients
+-t postgres.public.ingredients
 ```
 2. Second Terminal
 ```
@@ -34,7 +34,7 @@ confluentinc/cp-kafkacat \
 kafkacat -b broker:29092 -C \
 -s key=s -s value=avro \
 -r http://schema_registry:8081 \
--t topic_food.public.recipes
+-t postgres.public.recipes
 ```
 
 ### Example postgres inserts
