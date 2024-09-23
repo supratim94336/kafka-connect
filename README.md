@@ -21,7 +21,7 @@ In two different terminals
 $ docker run --tty \
 --network kc-test \
 confluentinc/cp-kafkacat \
-kafkacat -b broker:9092 -C \
+kafkacat -b broker:29092 -C \
 -s key=s -s value=avro \
 -r http://schema-registry:8085 \
 -t topic_food.public.ingredients
@@ -31,7 +31,7 @@ kafkacat -b broker:9092 -C \
 $ docker run --tty \
 --network kc-test \
 confluentinc/cp-kafkacat \
-kafkacat -b broker:9092 -C \
+kafkacat -b broker:29092 -C \
 -s key=s -s value=avro \
 -r http://schema-registry:8085 \
 -t topic_food.public.recipes
