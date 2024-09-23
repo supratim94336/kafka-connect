@@ -64,7 +64,7 @@ $ docker run --network=kc-test confluentinc/cp-kafkacat kafkacat -b broker:9092 
 ```
 or
 ```
-docker exec -ti kafka-connect-broker-1 kafka-topics --list --zookeeper zookeeper
+docker exec -ti kafka-connect-broker-1 kafka-topics --list --bootstrap-server=localhost:9092
 ```
 
 ### Clean up (if neccessary)
