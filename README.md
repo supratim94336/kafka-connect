@@ -9,14 +9,13 @@
 <img src="static/arch.png" width="400" height="128">
 </p>
 
-### Setup debezium connector
+### Setup debezium for source connector
 ```
-$ curl -i -X POST -H "Accept:application/json" -H "Content-Type:application/json" 127.0.0.1:8083/connectors/ --data "@debezium.json"
+$ curl -i -X POST -H "Accept:application/json" -H "Content-Type:application/json" 127.0.0.1:8083/connectors/ --data "@iceberg.json"
 ```
 
 ### Setup consumption
-In two different terminals
-1. First Terminal
+Run this in terminal
 ```
 $ docker run --tty \
 --network kc-test \
@@ -25,16 +24,6 @@ kafkacat -b broker:29092 -C \
 -s key=s -s value=avro \
 -r http://schema_registry:8081 \
 -t postgres.public.ingredients
-```
-2. Second Terminal
-```
-$ docker run --tty \
---network kc-test \
-confluentinc/cp-kafkacat \
-kafkacat -b broker:29092 -C \
--s key=s -s value=avro \
--r http://schema_registry:8081 \
--t postgres.public.recipes
 ```
 
 ### Example postgres inserts
@@ -45,13 +34,6 @@ VALUES
     (1, 'Beef', 5),
     (2, 'Lettuce', 1),
     (3, 'Tomatoes', 2);
-
-INSERT INTO recipes
-    (recipe_id, recipe_name) 
-VALUES
- (1,'Tacos'),
- (2,'Tomato Soup'),
- (3,'Grilled Cheese');
 ```
 
 ### Check Topics (if neccessary)
