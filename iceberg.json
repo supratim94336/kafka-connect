@@ -1,0 +1,27 @@
+{
+    "name": "iceberg-sink-connector",
+    "config": {
+        "connector.class": "com.getindata.kafka.connect.iceberg.sink.IcebergSink",
+        "tasks.max": "2",
+        "topics": "postgres.public.ingredients",
+        "upsert": true,
+        "upsert.keep-deletes": true,
+        "table.auto-create": true,
+        "table.write-format": "parquet",
+        "iceberg.catalog.catalog-impl": "org.apache.iceberg.nessie.NessieCatalog",
+        "iceberg.catalog.uri": "http://nessie:19120/api/v1",
+        "iceberg.catalog.ref": "main",
+        "iceberg.catalog.authentication.type": "NONE",
+        "iceberg.catalog.warehouse": "s3a://warehouse",
+        "iceberg.catalog.s3.endpoint": "http://localstack:4566",
+        "iceberg.catalog.io-impl": "org.apache.iceberg.aws.s3.S3FileIO",
+        "iceberg.catalog.client.region": "eu-central-1",
+        "iceberg.catalog.s3.path-style-access": "true",
+        "iceberg.catalog.s3.access-key-id": "localstack",
+        "iceberg.catalog.s3.secret-access-key": "localstack",
+        "iceberg.control.commitIntervalMs": "60000",
+        "value.converter.schemas.enable": "false",
+        "value.converter": "org.apache.kafka.connect.json.JsonConverter",
+        "key.converter": "org.apache.kafka.connect.storage.StringConverter"
+    }
+}
