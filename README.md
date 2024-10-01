@@ -47,7 +47,7 @@ VALUES
     (3, 'Tomatoes', 2);
 
 INSERT INTO recipes
- (recipe_id, recipe_name) 
+    (recipe_id, recipe_name) 
 VALUES
  (1,'Tacos'),
  (2,'Tomato Soup'),
